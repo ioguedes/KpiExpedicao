@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+
+{% block title %}Adicionar Carregamento{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<div class="container">
+    <h1 class="mt-4">Adicionar Carregamento</h1>
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        
+        <!-- Informações Gerais -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                Informações Gerais
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="id_tipo" class="form-label">Tipo</label>
+                            {{ form.tipo }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_data_carregamento" class="form-label">Data do Carregamento</label>
+                            {{ form.data_carregamento }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="id_hora_carregamento" class="form-label">Hora do Carregamento</label>
+                            {{ form.hora_carregamento }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_numero_carregamento" class="form-label">Número do Carregamento</label>
+                            {{ form.numero_carregamento }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="id_peso" class="form-label">Peso</label>
+                            {{ form.peso }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Responsáveis -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                Responsáveis
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="id_motorista" class="form-label">Motorista</label>
+                            {{ form.motorista }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="id_conferente" class="form-label">Conferente</label>
+                            {{ form.conferente }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="id_separador" class="form-label">Separador</label>
+                            {{ form.separador }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Separação -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                Separação
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="id_inicio_separacao_data" class="form-label">Data de Início</label>
+                            {{ form.inicio_separacao_data }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_inicio_separacao_hora" class="form-label">Hora de Início</label>
+                            {{ form.inicio_separacao_hora }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="id_termino_separacao_data" class="form-label">Data de Término</label>
+                            {{ form.termino_separacao_data }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_termino_separacao_hora" class="form-label">Hora de Término</label>
+                            {{ form.termino_separacao_hora }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carregamento -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                Carregamento
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="id_inicio_carregamento_data" class="form-label">Data de Início</label>
+                            {{ form.inicio_carregamento_data }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_inicio_carregamento_hora" class="form-label">Hora de Início</label>
+                            {{ form.inicio_carregamento_hora }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="id_termino_carregamento_data" class="form-label">Data de Término</label>
+                            {{ form.termino_carregamento_data }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_termino_carregamento_hora" class="form-label">Hora de Término</label>
+                            {{ form.termino_carregamento_hora }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Observações -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                Observações
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="id_observacao" class="form-label">Observação</label>
+                    <textarea id="id_observacao" name="observacao" class="form-control" rows="3" style="max-width: 100%;"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botões -->
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button type="reset" class="btn btn-secondary">Limpar Dados</button>
+        </div>
+    </form>
+</div>
+
+<!-- JavaScript para desabilitar campos de separação -->
+<script>
+    // Função para desabilitar/habilitar campos de separação
+    function toggleCamposSeparacao() {
+        const tipo = document.getElementById('id_tipo').value;
+        const camposSeparacao = [
+            'id_separador',
+            'id_inicio_separacao_data',
+            'id_inicio_separacao_hora',
+            'id_termino_separacao_data',
+            'id_termino_separacao_hora',
+            'id_numero_carregamento'
+        ];
+
+        camposSeparacao.forEach(campo => {
+            const elemento = document.getElementById(campo);
+            if (elemento) { // Verifica se o elemento existe
+                if (tipo === 'descarregamento') {
+                    elemento.disabled = true;
+                    elemento.value = ''; // Limpa o valor do campo
+                } else {
+                    elemento.disabled = false;
+                }
+            }
+        });
+    }
+
+    // Adicionar evento ao campo "tipo"
+    const campoTipo = document.getElementById('id_tipo');
+    if (campoTipo) {
+        campoTipo.addEventListener('change', toggleCamposSeparacao);
+    }
+
+    // Executar a função ao carregar a página
+    document.addEventListener('DOMContentLoaded', toggleCamposSeparacao);
+</script>
+
+<!-- Configuração do Flatpickr -->
+<script>
+    // Configuração do Flatpickr para campos de data
+    flatpickr("#id_data_carregamento", {
+        dateFormat: "d/m/Y",
+        locale: "pt"
+    });
+    flatpickr("#id_inicio_separacao_data", {
+        dateFormat: "d/m/Y",
+        locale: "pt"
+    });
+    flatpickr("#id_termino_separacao_data", {
+        dateFormat: "d/m/Y",
+        locale: "pt"
+    });
+    flatpickr("#id_inicio_carregamento_data", {
+        dateFormat: "d/m/Y",
+        locale: "pt"
+    });
+    flatpickr("#id_termino_carregamento_data", {
+        dateFormat: "d/m/Y",
+        locale: "pt"
+    });
+
+    // Configuração do Flatpickr para campos de hora
+    flatpickr("#id_hora_carregamento", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true
+    });
+    flatpickr("#id_inicio_separacao_hora", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true
+    });
+    flatpickr("#id_termino_separacao_hora", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true
+    });
+    flatpickr("#id_inicio_carregamento_hora", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true
+    });
+    flatpickr("#id_termino_carregamento_hora", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true
+    });
+</script>
+{% endblock %}
