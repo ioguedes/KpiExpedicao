@@ -8,6 +8,4 @@ urlpatterns = [
     path('adicionar/', views.adicionar_carregamento, name='adicionar_carregamento'),
     path('relatorio/', views.relatorio_analitico, name='relatorio_analitico'),
     path('detalhes/<int:id>/', views.detalhes_carregamento, name='detalhes_carregamento'),
-    path('', RedirectView.as_view(url='expedicao/')),
-    path('', views.index, name='index'),
 ]

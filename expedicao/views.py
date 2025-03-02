@@ -4,7 +4,6 @@ from django.db.models import Q, Sum
 from .models import Carregamento
 from .forms import CarregamentoForm
 from datetime import datetime
-from django.http import HttpResponse
 
 def lista_carregamentos(request):
     carregamentos = Carregamento.objects.all()
@@ -86,5 +85,3 @@ def detalhes_carregamento(request, id):
     return render(request, 'expedicao/detalhes_carregamento.html', {'carregamento': carregamento})
 
 
-def index(request):
-    return HttpResponse("Bem-vindo ao sistema de expedição!")
